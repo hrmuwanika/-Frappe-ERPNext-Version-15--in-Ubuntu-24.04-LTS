@@ -21,8 +21,7 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
 
 > ## Note:
-> Ubuntu 24.04 default python version is python3.12
-> Ubuntu 24.04 default mariadb version is 10.11
+> Ubuntu 24.04 default python version is python3.12 and mariadb default version is 10.11
 
 ### STEP 1 Install ubuntu update
     
