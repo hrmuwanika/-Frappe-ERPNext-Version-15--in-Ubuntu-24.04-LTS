@@ -1,4 +1,4 @@
-# Frappe-ERPNext Version-15 in Ubuntu 24.04 LTS
+cu# Frappe-ERPNext Version-15 in Ubuntu 24.04 LTS
 A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
 
@@ -119,8 +119,9 @@ Now press (Ctrl-X) to exit
 ### STEP 12 install wkhtmltopdf
     sudo apt install -y xvfb libfontconfig wkhtmltopdf
     
-### STEP 13 install frappe-bench
+### STEP 13 install frappe-bench and Ansible 
     sudo -H pip3 install frappe-bench --break-system-packages
+    sudo -H pip3 install ansible --break-system-packages
     bench --version
     
 ### STEP 14 initilise the frappe bench & install frappe latest version 
