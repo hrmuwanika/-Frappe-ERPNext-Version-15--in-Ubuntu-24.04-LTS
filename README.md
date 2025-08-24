@@ -155,10 +155,10 @@ Open url http://dcode.com:8000 to login
 
 
 ### STEP 16 install ERPNext latest version in bench & site
-
-    
     bench get-app erpnext --branch version-15
-    ###OR
+    
+    ### OR
+    
     bench get-app https://github.com/frappe/erpnext --branch version-15
 
     bench --site dcode.com install-app erpnext
