@@ -27,6 +27,7 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 ### STEP 1 Install ubuntu update
     sudo add-apt-repository ppa:deadsnakes/ppa -y
     sudo apt update && sudo apt upgrade -y
+    sudo apt install -y software-properties-common
 
 ### STEP 2 Install git
     sudo apt install -y git
@@ -41,7 +42,6 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
     sudo apt install -y python3.10-venv
     
 ### STEP 6 Install MariaDB
-    sudo apt install -y software-properties-common
     sudo apt install -y mariadb-server
     
     sudo systemctl status mariadb
