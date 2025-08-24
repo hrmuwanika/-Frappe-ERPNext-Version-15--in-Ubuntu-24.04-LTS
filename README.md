@@ -1,4 +1,4 @@
-cu# Frappe-ERPNext Version-15 in Ubuntu 24.04 LTS
+lcu# Frappe-ERPNext Version-15 in Ubuntu 24.04 LTS
 A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
 
@@ -114,8 +114,10 @@ Now press (Ctrl-X) to exit
     sudo apt install -y curl 
     # curl https://raw.githubusercontent.com/creationix/nvm/master/install.h | bash
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    source ~/.profile
-    nvm install 18
+    source ~/.bashrc
+    nvm install 18 
+    nvm alias default
+    
 
 ### STEP 11  install Yarn
     sudo apt install -y npm
