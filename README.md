@@ -8,7 +8,7 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
 ### Pre-requisites 
 
-      Python 3.11+                                  (python 3.12 is inbuilt in 24.04 LTS)
+      Python 3.11+                                  (python 3.12 is inbuilt in Ubuntu 24.04 LTS)
       Node.js 18+
       
       Redis 5                                       (caching and real time updates)
@@ -21,30 +21,28 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
 
 > ## Note:
-> ubuntu 24.04 default python version is python3.12
-> 
-> ubuntu 24.04 default mariadb version is 10.11
+> Ubuntu 24.04 default python version is python3.12
+> Ubuntu 24.04 default mariadb version is 10.11
 
-### STEP 1 Install git
-    sudo apt-get install git
+### STEP 1 Install ubuntu updates
+    sudo apt update && sudo apt upgrade -y
 
-### STEP 2 install python-dev
+### STEP 2 Install git
+    sudo apt install -y git
 
-    sudo apt-get install python3-dev
+### STEP 3 install -y python-dev 
+    sudo apt install -y python3-dev
 
-### STEP 3 Install setuptools and pip (Python's Package Manager).
+### STEP 4 Install setuptools and pip (Python's Package Manager).
+    sudo apt install -y python3-setuptools python3-pip
 
-    sudo apt-get install python3-setuptools python3-pip
-
-### STEP 4 Install virtualenv
+### STEP 5 Install virtualenv
+    sudo apt install -y python3.12-venv
     
-    sudo apt install python3.12-venv
+### STEP 6 Install MariaDB
+    sudo apt install -y software-properties-common
+    sudo apt install -y mariadb-server
     
-
-### STEP 5 Install MariaDB
-
-    sudo apt-get install software-properties-common
-    sudo apt install mariadb-server
     sudo systemctl status mariadb
     sudo mysql_secure_installation
     
@@ -84,21 +82,15 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
        Reload privilege tables now? [Y/n] Y
        ... Success!
 
- 
     
-    
-    
-### STEP 6  MySQL database development files
+### STEP 7  MySQL database development files
+    sudo apt install -y libmysqlclient-dev
 
-    sudo apt-get install libmysqlclient-dev
-
-### STEP 7 Edit the mariadb configuration ( unicode character encoding )
-
+### STEP 8 Edit the mariadb configuration ( unicode character encoding )
     sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
 
 add this to the 50-server.cnf file
 
-    
     [server]
     user = mysql
     pid-file = /run/mysqld/mysqld.pid
@@ -123,57 +115,46 @@ add this to the 50-server.cnf file
     default-character-set = utf8mb4
 
 Now press (Ctrl-X) to exit
-
     sudo service mysql restart
 
-### STEP 8 install Redis
-    
-    sudo apt-get install redis-server
+### STEP 9 install Redis
+    sudo apt install -y redis-server
 
-### STEP 9 install Node.js 18.X package
-
-    sudo apt install curl 
+### STEP 10 install Node.js 18.X package
+    sudo apt install -y curl 
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
     source ~/.profile
     nvm install 18
 
-### STEP 10  install Yarn
-
-    sudo apt-get install npm
-
+### STEP 11  install Yarn
+    sudo apt install -y npm
     sudo npm install -g yarn
 
-### STEP 11 install wkhtmltopdf
-
-    sudo apt-get install xvfb libfontconfig wkhtmltopdf
+### STEP 12 install wkhtmltopdf
+    sudo apt install -y xvfb libfontconfig wkhtmltopdf
     
-
-### STEP 12 install frappe-bench
-
+### STEP 13 install frappe-bench
     sudo -H pip3 install frappe-bench --break-system-packages
-    
     bench --version
     
-### STEP 13 initilise the frappe bench & install frappe latest version 
-
+### STEP 14 initilise the frappe bench & install frappe latest version 
     bench init frappe-bench --frappe-branch version-15
     
     cd frappe-bench/
     bench start
     
-### STEP 14 create a site in frappe bench 
+### STEP 15 create a site in frappe bench 
 
 >### Note 
 >Warning: MariaDB version ['10.11', '7'] is more than 10.8 which is not yet tested with Frappe Framework.
     
     bench new-site dcode.com
-    
     bench --site dcode.com add-to-hosts
 
 Open url http://dcode.com:8000 to login 
 
 
-### STEP 15 install ERPNext latest version in bench & site
+### STEP 16 install ERPNext latest version in bench & site
 
     
     bench get-app erpnext --branch version-15
