@@ -24,22 +24,16 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 > Ubuntu 24.04 default python version is python3.12 and mariadb default version is 10.11
 
 ### STEP 1 Install ubuntu update
-    
     sudo apt update -y && sudo apt upgrade -y
-    
-    sudo apt install -y software-properties-common
-    sudo add-apt-repository ppa:deadsnakes/ppa -y
-    sudo apt update
-    
 
 ### STEP 2 Install git
-    sudo apt install -y git
+    sudo apt install -y git software-properties-common
 
 ### STEP 3 install -y python-dev 
     sudo apt install -y python3-dev
 
 ### STEP 4 Install setuptools and pip (Python's Package Manager).
-    sudo apt install -y python3-setuptools python3-pip python3-distutils
+    sudo apt install -y python3-setuptools python3-pip 
 
 ### STEP 5 Install virtualenv
     sudo apt install -y python3-venv
@@ -51,43 +45,6 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
     sudo systemctl start mariadb
     
     sudo mysql_secure_installation
-    
-    
-      In order to log into MariaDB to secure it, we'll need the current
-      password for the root user. If you've just installed MariaDB, and
-      haven't set the root password yet, you should just press enter here.
-
-      Enter current password for root (enter for none): # PRESS ENTER
-      OK, successfully used password, moving on...
-      
-      
-      Switch to unix_socket authentication [Y/n] Y
-      Enabled successfully!
-      Reloading privilege tables..
-       ... Success!
- 
-      Change the root password? [Y/n] Y
-      New password: 
-      Re-enter new password: 
-      Password updated successfully!
-      Reloading privilege tables..
-       ... Success!
-
-      Remove anonymous users? [Y/n] Y
-       ... Success!
- 
-       Disallow root login remotely? [Y/n] Y
-       ... Success!
-
-       Remove test database and access to it? [Y/n] Y
-       - Dropping test database...
-       ... Success!
-       - Removing privileges on test database...
-       ... Success!
- 
-       Reload privilege tables now? [Y/n] Y
-       ... Success!
-
     
 ### STEP 7  MySQL database development files
     sudo apt install -y libmysqlclient-dev
