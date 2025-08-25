@@ -23,33 +23,39 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 > ## Note:
 > Ubuntu 24.04 default python version is python3.12 and mariadb default version is 10.11
 
-### STEP 1 Install ubuntu update
+### STEP 1 Update and Upgrade Packages
     sudo apt update -y && sudo apt upgrade -y
 
-### STEP 2 Install git
-    sudo apt install -y git software-properties-common
+### STEP 2 Create a new user – (bench user)
+    sudo adduser frappe
+    sudo usermod -aG sudo frappe
+    su - frappe
+    cd /home/frappe
+    
+### STEP 3 Install git
+    sudo apt install -y git
 
-### STEP 3 install -y python-dev 
+### STEP 4 install -y python-dev 
     sudo apt install -y python3-dev
 
-### STEP 4 Install setuptools and pip (Python's Package Manager).
+### STEP 5 Install setuptools and pip (Python's Package Manager).
     sudo apt install -y python3-setuptools python3-pip 
 
-### STEP 5 Install virtualenv
-    sudo apt install -y python3-venv
+### STEP 6 Install virtualenv
+    sudo apt install -y python3.12-venv
     
-### STEP 6 Install MariaDB
-    sudo apt install -y mariadb-server
+### STEP 7 Install MariaDB
+    sudo apt install -y mariadb-server software-properties-common
     
     sudo systemctl enable mariadb
     sudo systemctl start mariadb
     
     sudo mysql_secure_installation
     
-### STEP 7  MySQL database development files
+### STEP 8  MySQL database development files
     sudo apt install -y libmysqlclient-dev
 
-### STEP 8 Edit the mariadb configuration ( unicode character encoding )
+### STEP 9 Edit the mariadb configuration ( unicode character encoding )
     sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
 
 add this to the 50-server.cnf file
@@ -79,28 +85,30 @@ add this to the 50-server.cnf file
 
     sudo systemctl restart mariadb
 
-### STEP 9 install Redis
+### STEP 10 install Redis
     sudo apt install -y redis-server
 
-### STEP 10 install Node.js 18.X package
+### STEP 11 install Node.js 18.X package
     sudo apt install -y curl 
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
     source ~/.profile
     nvm install 18 
 
-### STEP 11  install Yarn
+### STEP 12  install Yarn
     sudo apt install -y npm
     sudo npm install -g yarn
 
-### STEP 12 install wkhtmltopdf
+### STEP 13 install wkhtmltopdf
     sudo apt install -y xvfb libfontconfig wkhtmltopdf
     
-### STEP 13 install frappe-bench and Ansible 
+### STEP 14 install frappe-bench
     sudo -H pip3 install frappe-bench --break-system-packages
-    sudo -H pip3 install ansible --break-system-packages
-    bench --version
+    bench --version 
 
-### STEP 14 Install ufw 
+### Install ansible
+    sudo -H pip3 install ansible --break-system-packages
+
+### STEP 15 Install ufw 
     sudo apt install -y ufw
     sudo ufw enable
     sudo ufw allow 22/tcp
@@ -109,10 +117,16 @@ add this to the 50-server.cnf file
     sudo ufw allow 8000/tcp
     sudo ufw reload
     
-### STEP 15 initilise the frappe bench & install frappe latest version 
+### STEP 16 Initialize Frappe Bench 
     bench init frappe-bench --frappe-branch version-15
+
+### Switch directories into the Frappe Bench directory
+    cd frappe-bench
+
+### Change user directory permissions
+    chmod -R o+rx /home/frappe
      
-### STEP 16 create a site in frappe bench 
+### STEP 17 create a new site in frappe bench 
 
 >### Note 
 >Warning: MariaDB version ['10.11', '7'] is more than 10.8 which is not yet tested with Frappe Framework.
@@ -123,7 +137,7 @@ add this to the 50-server.cnf file
 Open url http://dcode.com:8000 to login 
 
 
-### STEP 17 install ERPNext latest version in bench & site
+### STEP 18 Download all the apps we want to install
     bench get-app erpnext --branch version-15
     bench get-app payments
     bench get-app hrms
