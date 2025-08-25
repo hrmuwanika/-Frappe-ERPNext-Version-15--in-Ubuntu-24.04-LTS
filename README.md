@@ -1,4 +1,4 @@
-lcu# Frappe-ERPNext Version-15 in Ubuntu 24.04 LTS
+Frappe-ERPNext Version-15 in Ubuntu 24.04 LTS
 A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
 
@@ -25,7 +25,7 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
 ### STEP 1 Install ubuntu update
     
-    sudo apt update && sudo apt upgrade -y
+    sudo apt update -y && sudo apt upgrade -y
     
     sudo apt install -y software-properties-common
     sudo add-apt-repository ppa:deadsnakes/ppa -y
@@ -47,7 +47,9 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 ### STEP 6 Install MariaDB
     sudo apt install -y mariadb-server
     
-    sudo systemctl status mariadb
+    sudo systemctl enable mariadb
+    sudo systemctl start mariadb
+    
     sudo mysql_secure_installation
     
     
@@ -94,18 +96,16 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
     sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
 
 add this to the 50-server.cnf file
-
     
-     [mysqld]
+    [mysqld]
+    character-set-client-handshake = FALSE
     character-set-server = utf8mb4
     collation-server = utf8mb4_unicode_ci
-    innodb_file_format = Barracuda
-    innodb_large_prefix = 1
-    
 
+    [mysql]
+    default-character-set = utf8mb4
 
-Now press (Ctrl-X) to exit
-    sudo service mysql restart
+    sudo systemctl restart mariadb
 
 ### STEP 9 install Redis
     sudo apt install -y redis-server
@@ -117,7 +117,6 @@ Now press (Ctrl-X) to exit
     source ~/.bashrc
     nvm install 18 
     nvm alias default
-    
 
 ### STEP 11  install Yarn
     sudo apt install -y npm
@@ -130,14 +129,20 @@ Now press (Ctrl-X) to exit
     sudo -H pip3 install frappe-bench --break-system-packages
     sudo -H pip3 install ansible --break-system-packages
     bench --version
+
+### STEP 14 Install ufw 
+    sudo apt install -y ufw
+    sudo ufw enable
+    sudo ufw allow 22/tcp
+    sudo ufw allow 80/tcp
+    sudo ufw allow 443/tcp
+    sudo ufw allow 8000/tcp
+    sudo ufw reload
     
-### STEP 14 initilise the frappe bench & install frappe latest version 
+### STEP 15 initilise the frappe bench & install frappe latest version 
     bench init frappe-bench --frappe-branch version-15
-    
-    cd frappe-bench/
-    bench start
-    
-### STEP 15 create a site in frappe bench 
+     
+### STEP 16 create a site in frappe bench 
 
 >### Note 
 >Warning: MariaDB version ['10.11', '7'] is more than 10.8 which is not yet tested with Frappe Framework.
@@ -148,17 +153,15 @@ Now press (Ctrl-X) to exit
 Open url http://dcode.com:8000 to login 
 
 
-### STEP 16 install ERPNext latest version in bench & site
+### STEP 17 install ERPNext latest version in bench & site
     bench get-app erpnext --branch version-15
     bench get-app payments
     bench get-app hrms
     
     bench --site dcode.com install-app erpnext
-    bench --site scode.com install-app hrms
-    bench --site scode.com install-app payments
+    bench --site dcode.com install-app hrms
+    bench --site dcode.com install-app payments
+    
     bench start
-    
-    
-
 
     
