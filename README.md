@@ -45,48 +45,37 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
     sudo apt install -y python3.12-venv
     
 ### STEP 7 Install MariaDB
-    sudo apt install -y mariadb-server software-properties-common
+    sudo apt install -y software-properties-common libmariadb-dev mariadb-server mariadb-client pkg-config
     
     sudo systemctl enable mariadb
     sudo systemctl start mariadb
     
-    sudo mysql_secure_installation
+    sudo mariadb-secure-installation
     
 ### STEP 8  MySQL database development files
     sudo apt install -y libmysqlclient-dev
 
 ### STEP 9 Edit the mariadb configuration ( unicode character encoding )
-    sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+    sudo nano /etc/mysql/my.cnf
+
 
 add this to the 50-server.cnf file
     
-     [server]
-     user = mysql
-     pid-file = /run/mysqld/mysqld.pid
-     socket = /run/mysqld/mysqld.sock
-     basedir = /usr
-     datadir = /var/lib/mysql
-     tmpdir = /tmp
-     lc-messages-dir = /usr/share/mysql
-     bind-address = 127.0.0.1
-     query_cache_size = 16M
-     log_error = /var/log/mysql/error.log
+     [mysqld]
+     character-set-client-handshake = FALSE
+     character-set-server = utf8mb4
+     collation-server = utf8mb4_unicode_ci
 
-    [mysqld]
-    innodb-file-format=barracuda
-    innodb-file-per-table=1
-    innodb-large-prefix=1
-    character-set-client-handshake = FALSE
-    character-set-server = utf8mb4
-    collation-server = utf8mb4_unicode_ci      
- 
-    [mysql]
-    default-character-set = utf8mb4
+     [mysql]
+     default-character-set = utf8mb4
+
 
     sudo systemctl restart mariadb
 
 ### STEP 10 install Redis
     sudo apt install -y redis-server
+    sudo systemctl enable redis-server.service
+    sudo systemctl start redis-server.service
 
 ### STEP 11 install Node.js 18.X package
     sudo apt install -y curl 
@@ -143,8 +132,7 @@ Open url http://dcode.com:8000 to login
     bench get-app hrms
     
     bench --site dcode.com install-app erpnext
-    bench --site dcode.com install-app hrms
-    bench --site dcode.com install-app payments
+    bench --site dcode.com install-app ugandan_compliance
     
     bench start
 
