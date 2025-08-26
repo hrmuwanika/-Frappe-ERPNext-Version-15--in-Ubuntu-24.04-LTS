@@ -26,9 +26,13 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 > ubuntu 24.04 default mariadb version is 10.11
 
 ### STEP 1 Update and Upgrade Packages
-    sudo apt update -y && sudo apt upgrade -y
 
-### STEP 2 Create a new user – (bench user)
+    sudo apt update -y && sudo apt upgrade -y
+    sudo reboot
+
+### STEP 2 Create a new user – (Frappe Bench User)
+> We will create a user that we can use, and this will be the user we will also use as the Frappe Bench User.
+
     sudo adduser frappe
     sudo usermod -aG sudo frappe
     su - frappe
@@ -47,7 +51,8 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
     sudo apt install -y python3.12-venv
     
 ### STEP 7 Install MariaDB
-    sudo apt install -y software-properties-common libmariadb-dev mariadb-server mariadb-client pkg-config
+    sudo apt install -y software-properties-common 
+    sudo apt install -y libmariadb-dev mariadb-server mariadb-client pkg-config
     
     sudo systemctl enable mariadb
     sudo systemctl start mariadb
@@ -60,8 +65,7 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 ### STEP 9 Edit the mariadb configuration ( unicode character encoding )
     sudo nano /etc/mysql/my.cnf
 
-
-add this to the 50-server.cnf file
+add this to the my.cnf file
     
      [mysqld]
      character-set-client-handshake = FALSE
@@ -134,7 +138,10 @@ Open url http://dcode.com:8000 to login
     bench get-app hrms
     
     bench --site dcode.com install-app erpnext
+    bench get-app --branch master https://github.com/erpchampions/uganda_compliance.git
     bench --site dcode.com install-app ugandan_compliance
+    bench --site dcode.com migrate
+    bench restart
     
     bench start
 
