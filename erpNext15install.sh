@@ -16,7 +16,7 @@ echo $passwrd | sudo -S NEEDRESTART_MODE=a apt upgrade -y
 
 echo $passwrd | sudo -S NEEDRESTART_MODE=a apt -qq install nano git curl -y
 echo $passwrd | sudo -S NEEDRESTART_MODE=a apt -qq install python3-dev python3-pip python3-setuptools -y
-echo $passwrd | sudo -S NEEDRESTART_MODE=a apt -qq install python3.12-venv -y
+echo $passwrd | sudo -S NEEDRESTART_MODE=a apt -qq install python3-venv -y
 echo $passwrd | sudo -S NEEDRESTART_MODE=a apt -qq install cron software-properties-common mariadb-client mariadb-server libmysqlclient-dev -y
 echo $passwrd | sudo -S NEEDRESTART_MODE=a apt -qq install supervisor redis-server xvfb libfontconfig wkhtmltopdf -y
 MARKER_FILE=~/.MariaDB_handled.marker
