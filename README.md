@@ -80,8 +80,6 @@ add this to the my.cnf file
 
 ### STEP 10 install Redis
     sudo apt install -y redis-server
-    sudo systemctl enable redis-server.service
-    sudo systemctl start redis-server.service
 
 ### STEP 11 install Node.js 18.X package
     sudo apt install -y curl 
@@ -138,9 +136,11 @@ Open url http://dcode.com:8000 to login
     bench get-app hrms
     
     bench --site dcode.com install-app erpnext
-    bench get-app --branch master https://github.com/erpchampions/uganda_compliance.git
-    bench --site dcode.com install-app ugandan_compliance
-    bench --site dcode.com migrate
+    pip install pillow --break-system-packages
+
+    bench get-app https://github.com/erpchampions/uganda_compliance.git 
+    bench --site asmtech.co.rw install-app uganda_compliance
+    bench --site asmtech.co.rw migrate
     bench restart
     
     bench start
