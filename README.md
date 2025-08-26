@@ -177,7 +177,7 @@ Open url http://dcode.com:8000 to login
     bench get-app payments
     bench get-app hrms
     
-    bench --site dcode.com install-app erpnext
+    bench --site asmtech.co.rw install-app erpnext
     pip install pillow --break-system-packages
 
     bench get-app https://github.com/erpchampions/uganda_compliance.git 
