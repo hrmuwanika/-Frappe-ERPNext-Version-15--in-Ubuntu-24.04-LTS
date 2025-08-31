@@ -133,9 +133,6 @@ Add the following lines to the configuration file:
     sudo -H pip3 install frappe-bench --break-system-packages
     bench --version 
 
-### Install ansible
-    sudo -H pip3 install ansible --break-system-packages
-
 ### STEP 15 Install ufw 
     sudo apt install -y ufw
     sudo ufw enable
@@ -156,7 +153,7 @@ Add the following lines to the configuration file:
 ### Set Permissions for the User Directory
 > Make sure the user has the correct permissions to access their home directory.
 
-    chmod -R o+rx /home/frappe
+    chmod -R o+rx .
      
 ### STEP 17 create a new site in frappe bench 
 
@@ -164,10 +161,10 @@ Add the following lines to the configuration file:
 > Warning: MariaDB version ['10.11', '7'] is more than 10.8 which is not yet tested with Frappe Framework.
 > Set up a new site with the following command.
     
-    bench new-site dcode.com
-    bench --site dcode.com add-to-hosts
+    bench new-site asmtech.co.rw
+    bench --site asmtech.co.rw add-to-hosts
 
-Open url http://dcode.com:8000 to login 
+Open url http://asmtech.co.rw:8000 to login 
 
 
 ### STEP 18 Download all the apps we want to install
@@ -178,10 +175,76 @@ Open url http://dcode.com:8000 to login
     bench get-app hrms
     
     bench --site asmtech.co.rw install-app erpnext
-    pip install pillow --break-system-packages
+    sudo -H pip3 install pillow --break-system-packages
 
     bench get-app https://github.com/erpchampions/uganda_compliance.git 
     bench --site asmtech.co.rw install-app uganda_compliance
+
+### Step 19: Prepare Your Site for Production
+> Activate the scheduler for your site.
+
+    bench --site asmtech.co.rw enable-scheduler
+
+> Set Maintenance Mode off
+> Disable maintenance mode to make your site accessible.
+
+     bench --site asmtech.co.rw set-maintenance-mode off
+
+### Step 20: Set Up the Virtual Environment
+> Run the following command to install and configure the Python virtual environment if it hasn't been set up already.
+
+      python3 -m venv env
+
+### Step 21 Activate your virtual environment
+      
+    source env/bin/activate
+    
+### Step 22: Install and Configure Additional Tools
+> Install Ansible (Python Package)
+> Install Ansible to manage automation tasks.
+
+    sudo /usr/bin/python3 -m pip install ansible --break-system-packages
+    
+### Install Fail2ban
+> Set up Fail2ban to enhance security.
+
+    sudo apt install fail2ban -y
+    
+### Install and Configure Nginx and Supervisor
+> Install Nginx
+> Update your package list and install Nginx.
+
+    sudo apt update
+    sudo apt install nginx -y
+    
+### Install and setup Supervisor
+Install Supervisor to manage processes.
+
+    sudo apt update && sudo apt install supervisor -y
+    
+### Set Up Production Environment
+> Finally, set up the production environment using the following command:
+
+    bench setup production frappe
+
+> And that’s it! You’ve successfully installed ERPNext Version 15 on Ubuntu 24. Your system is now ready for use.
+
+### Install Standard and Custom Apps from GitHub(Optional)
+> Install a Standard App
+> To install a standard app from the Frappe ecosystem, run:
+
+    bench get-app --branch [branch-name or version] [app name]
+    
+### Install a Custom App from GitHub
+> For a custom app hosted on GitHub, use:
+
+    bench get-app --branch [branch-name] [app-name] [github remote link]
+    
+### Install an App on Your Site
+> To install the app on your specific site:
+
+    bench --site [site-name] install-app [app-name]
+
     bench --site asmtech.co.rw migrate
     bench restart
     
