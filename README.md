@@ -29,7 +29,6 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 > First, update your package list and upgrade your installed packages to ensure you’re starting with the latest versions.
 
     sudo apt update -y && sudo apt upgrade -y
-    sudo reboot
 
 ### STEP 2 Create a new user – (Frappe Bench User)
 > create a new user for running the Frappe Bench.
@@ -44,7 +43,7 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 
     sudo apt install -y git
 
-### STEP 4 install -y python-dev 
+### STEP 4 install -y python3-dev 
 > Install Python 3.12 and its development tools.
 
     sudo apt install -y python3-dev python3.12-dev
@@ -57,12 +56,16 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 > Set up a virtual environment for Python 3.12.
  
     sudo apt install -y python3.12-venv
+
+### Install Common Software Properties
+> Install the necessary software properties.
+
+    sudo apt install -y software-properties-common 
     
 ### STEP 7 Install MariaDB
 > MariaDB is the database management system used by ERPNext.
 
-    sudo apt install -y software-properties-common 
-    sudo apt install -y libmariadb-dev mariadb-server mariadb-client pkg-config
+    sudo apt install -y libmariadb-dev mariadb-server  pkg-config
 
 ### ### Enabling Mariadb boots 
     sudo systemctl enable mariadb
@@ -75,7 +78,7 @@ A complete Guide to Install Frappe/ERPNext version 15  in Ubuntu 24.04 LTS
 ### STEP 8  MySQL database development files
 > This installs libraries needed to develop and compile MySQL client applications, which are essential for interacting with MySQL databases.
 
-    sudo apt install -y libmysqlclient-dev
+    sudo apt install -y libmysqlclient-dev mariadb-client
 
 ### STEP 9 Edit the mariadb configuration ( unicode character encoding )
 > Open the MySQL configuration file for editing:
@@ -157,28 +160,12 @@ Add the following lines to the configuration file:
      
 ### STEP 17 create a new site in frappe bench 
 
->### Note 
+### Note 
 > Warning: MariaDB version ['10.11', '7'] is more than 10.8 which is not yet tested with Frappe Framework.
 > Set up a new site with the following command.
     
     bench new-site asmtech.co.rw
     bench --site asmtech.co.rw add-to-hosts
-
-Open url http://asmtech.co.rw:8000 to login 
-
-
-### STEP 18 Download all the apps we want to install
-> Add and install ERPNext version 15 on your new site.
-
-    bench get-app erpnext --branch version-15
-    bench get-app payments
-    bench get-app hrms
-    
-    bench --site asmtech.co.rw install-app erpnext
-    sudo -H pip3 install pillow --break-system-packages
-
-    bench get-app https://github.com/erpchampions/uganda_compliance.git 
-    bench --site asmtech.co.rw install-app uganda_compliance
 
 ### Step 19: Prepare Your Site for Production
 > Activate the scheduler for your site.
@@ -208,19 +195,19 @@ Open url http://asmtech.co.rw:8000 to login
 ### Install Fail2ban
 > Set up Fail2ban to enhance security.
 
-    sudo apt install fail2ban -y
+    sudo apt install -y fail2ban
     
 ### Install and Configure Nginx and Supervisor
 > Install Nginx
 > Update your package list and install Nginx.
 
     sudo apt update
-    sudo apt install nginx -y
+    sudo apt install -y nginx 
     
 ### Install and setup Supervisor
 Install Supervisor to manage processes.
 
-    sudo apt update && sudo apt install supervisor -y
+    sudo apt update && sudo apt install -y supervisor 
     
 ### Set Up Production Environment
 > Finally, set up the production environment using the following command:
@@ -233,21 +220,23 @@ Install Supervisor to manage processes.
 > Install a Standard App
 > To install a standard app from the Frappe ecosystem, run:
 
-    bench get-app --branch [branch-name or version] [app name]
+    bench get-app erpnext --branch version-15
+    bench get-app payments
+    bench get-app hrms
     
 ### Install a Custom App from GitHub
 > For a custom app hosted on GitHub, use:
+> bench get-app --branch [branch-name] [app-name] [github remote link]
 
-    bench get-app --branch [branch-name] [app-name] [github remote link]
-    
-### Install an App on Your Site
-> To install the app on your specific site:
+    bench --site asmtech.co.rw install-app erpnext
+    sudo -H pip3 install pillow --break-system-packages
 
-    bench --site [site-name] install-app [app-name]
+    bench get-app https://github.com/erpchampions/uganda_compliance.git 
+    bench --site asmtech.co.rw install-app uganda_compliance
 
     bench --site asmtech.co.rw migrate
     bench restart
     
     bench start
 
-    
+Open url http://asmtech.co.rw:8000 to login 
