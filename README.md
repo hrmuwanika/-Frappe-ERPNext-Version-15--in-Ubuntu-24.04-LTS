@@ -262,3 +262,4 @@ Open url http://asmtech.co.rw:8000 to login
 
 ### To setup multitenancy check out this link
 - https://frappeframework.com/docs/v15/user/en/bench/guides/setup-multitenancy
+- https://github.com/frappe/bench/wiki/Multitenant-Setup
