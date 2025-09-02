@@ -104,7 +104,7 @@ Add the following lines to the configuration file:
 
     sudo apt install -y redis-server
 
-### STEP 11 install Node.js 18.X package
+### STEP 11 install Node.js 20.X package
 > Curl is required for downloading files and setting up Node.js.
 
     sudo apt install -y curl 
@@ -114,7 +114,7 @@ Add the following lines to the configuration file:
 
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
     source ~/.profile
-    nvm install 18 
+    nvm install 20 
 
 ### STEP 12  install Npm and yarn
 > Install npm, the Node.js package manager.
@@ -123,7 +123,7 @@ Add the following lines to the configuration file:
 
 > Install Yarn, a fast and reliable JavaScript package manager.
 
-    sudo npm install -g yarn
+    sudo npm install -g yarn@1.22.19
 
 ### STEP 13 install wkhtmltopdf
 > These tools are used to convert HTML pages into PDF files, often for generating reports or documents.
