@@ -239,7 +239,7 @@ Install Supervisor to manage processes.
 ### Set Up Production Environment
 Finally, set up the production environment using the following command:
 
-    bench setup production frappe
+    sudo bench setup production frappe
 
 > And that’s it! You’ve successfully installed ERPNext Version 15 on Ubuntu 24. Your system is now ready for use.
 
