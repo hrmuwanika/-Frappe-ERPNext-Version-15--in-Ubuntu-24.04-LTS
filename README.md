@@ -29,12 +29,12 @@
 > 
 > Ubuntu 24.04 default mariadb version is 10.11
 
-### STEP 1 Update and Upgrade Packages
+### Update and Upgrade Packages
 First, update your package list and upgrade your installed packages to ensure you’re starting with the latest versions.
 
     sudo apt update -y && sudo apt upgrade -y
 
-### STEP 2 Create a new user – (Frappe Bench User)
+### Create a new user – (Frappe Bench User)
 create a new user for running the Frappe Bench.
 
     sudo adduser frappe
@@ -42,21 +42,21 @@ create a new user for running the Frappe Bench.
     su frappe
     cd /home/frappe
     
-### STEP 3 Install git
+### Install git
 Git is required for version control and to clone repositories.
 
     sudo apt install -y git
 
-### STEP 4 install -y python3-dev 
+### Install -y python3-dev 
 Install Python 3.12 and its development tools.
 
     sudo apt install -y python3-dev python3.12-dev
 
-### STEP 5 Install setuptools and pip (Python's Package Manager).
+### Install setuptools and pip (Python's Package Manager).
 
     sudo apt install -y python3-setuptools python3-pip 
 
-### STEP 6 Install virtualenv
+### Install virtualenv
 Set up a virtual environment for Python 3.12.
  
     sudo apt install -y python3.12-venv
@@ -66,7 +66,7 @@ Install the necessary software properties.
 
     sudo apt install -y software-properties-common 
     
-### STEP 7 Install MariaDB
+### Install MariaDB
 MariaDB is the database management system used by ERPNext.
 
     sudo apt install -y libmariadb-dev mariadb-server  pkg-config
@@ -79,12 +79,12 @@ MariaDB is the database management system used by ERPNext.
 
     sudo mariadb-secure-installation
     
-### STEP 8  MySQL database development files
+### MySQL database development files
 This installs libraries needed to develop and compile MySQL client applications, which are essential for interacting with MySQL databases.
 
     sudo apt install -y libmysqlclient-dev mariadb-client
 
-### STEP 9 Edit the mariadb configuration ( unicode character encoding )
+### Edit the mariadb configuration ( unicode character encoding )
 Open the MySQL configuration file for editing:
 
     sudo nano /etc/mysql/my.cnf
@@ -103,12 +103,16 @@ Add the following lines to the configuration file:
 
     sudo systemctl restart mariadb
 
-### STEP 10 install Redis
+### Install Redis
 Redis is used for caching and background job processing.
 
     sudo apt install -y redis-server
 
-### STEP 11 install Node.js 20.X package
+### Enabling Redis boots 
+    sudo systemctl enable redis.service
+    sudo systemctl start redis.service
+
+### Install Node.js 20.X package
 Curl is required for downloading files and setting up Node.js.
 
     sudo apt install -y curl 
@@ -120,7 +124,7 @@ Use NVM (Node Version Manager) to install Node.js version 18.
     source ~/.profile
     nvm install 20 
 
-### STEP 12  install Npm and yarn
+### Install Npm and yarn
 Install npm, the Node.js package manager.
 
     sudo apt install -y npm
@@ -129,18 +133,18 @@ Install Yarn, a fast and reliable JavaScript package manager.
 
     sudo npm install -g yarn@1.22.19
 
-### STEP 13 install wkhtmltopdf
+### Install wkhtmltopdf
 These tools are used to convert HTML pages into PDF files, often for generating reports or documents.
 
     sudo apt install -y xvfb libfontconfig wkhtmltopdf
     
-### STEP 14 install frappe-bench
+### Install frappe-bench
 Quickly set up your Frappe development environment with this command:
 
     sudo -H pip3 install frappe-bench --break-system-packages
     bench --version 
 
-### STEP 15 Install ufw 
+### Install ufw 
     sudo apt install -y ufw
     sudo ufw enable
     sudo ufw allow 22/tcp
@@ -149,7 +153,7 @@ Quickly set up your Frappe development environment with this command:
     sudo ufw allow 8000/tcp
     sudo ufw reload
     
-### STEP 16 Initialize Frappe Bench with a Specific Version
+### Initialize Frappe Bench with a Specific Version
 Initialize Frappe Bench using version 15.
 
     bench init frappe-bench --frappe-branch version-15
@@ -162,7 +166,7 @@ Make sure the user has the correct permissions to access their home directory.
 
     chmod -R o+rx .
      
-### STEP 17 create a new site in frappe bench 
+### Create a new site in frappe bench 
 
 ### Note 
 > Warning: MariaDB version ['10.11', '7'] is more than 10.8 which is not yet tested with Frappe Framework.
