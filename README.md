@@ -39,7 +39,7 @@ create a new user for running the Frappe Bench.
 
     sudo adduser frappe
     sudo usermod -aG sudo frappe
-    su - frappe
+    su frappe
     cd /home/frappe
     
 ### STEP 3 Install git
@@ -171,7 +171,30 @@ Set up a new site with the following command.
     bench new-site asmtech.co.rw
     bench --site asmtech.co.rw add-to-hosts
 
-### Step 19: Prepare Your Site for Production
+### Install Standard and Custom Apps from GitHub(Optional)
+> Install a Standard App
+To install a standard app from the Frappe ecosystem, run:
+
+    bench get-app erpnext --branch version-15
+    bench get-app payments
+    bench get-app hrms
+    
+### Install a Custom App from GitHub
+> For a custom app hosted on GitHub, use:
+bench get-app --branch [branch-name] [app-name] [github remote link]
+
+    bench --site asmtech.co.rw install-app erpnext
+    sudo -H pip3 install pillow --break-system-packages
+
+    bench get-app https://github.com/erpchampions/uganda_compliance.git 
+    bench --site asmtech.co.rw install-app uganda_compliance
+
+    bench --site asmtech.co.rw migrate
+    bench restart
+
+    bench start
+
+### Prepare Your Site for Production
 Activate the scheduler for your site.
 
     bench --site asmtech.co.rw enable-scheduler
@@ -220,26 +243,6 @@ Finally, set up the production environment using the following command:
 
 > And that’s it! You’ve successfully installed ERPNext Version 15 on Ubuntu 24. Your system is now ready for use.
 
-### Install Standard and Custom Apps from GitHub(Optional)
-> Install a Standard App
-To install a standard app from the Frappe ecosystem, run:
-
-    bench get-app erpnext --branch version-15
-    bench get-app payments
-    bench get-app hrms
-    
-### Install a Custom App from GitHub
-> For a custom app hosted on GitHub, use:
-bench get-app --branch [branch-name] [app-name] [github remote link]
-
-    bench --site asmtech.co.rw install-app erpnext
-    sudo -H pip3 install pillow --break-system-packages
-
-    bench get-app https://github.com/erpchampions/uganda_compliance.git 
-    bench --site asmtech.co.rw install-app uganda_compliance
-
-    bench --site asmtech.co.rw migrate
-    bench restart
     
 ### Setup NGINX to apply the changes
 
