@@ -34,6 +34,17 @@ First, update your package list and upgrade your installed packages to ensure yo
 
     sudo apt update -y && sudo apt upgrade -y
 
+### Install ufw 
+    sudo apt install -y ufw
+    
+    sudo ufw enable
+    sudo ufw allow 22/tcp
+    sudo ufw allow 80/tcp
+    sudo ufw allow 443/tcp
+    sudo ufw allow 3306/tcp
+    sudo ufw allow 8000/tcp
+    sudo ufw reload
+
 ### Create a new user – (Frappe Bench User)
 create a new user for running the Frappe Bench.
 
@@ -50,7 +61,7 @@ Git is required for version control and to clone repositories.
 ### Install -y python3-dev 
 Install Python 3.12 and its development tools.
 
-    sudo apt install -y python3-dev python3.12-dev
+    sudo apt install -y python3-dev 
 
 ### Install setuptools and pip (Python's Package Manager).
 
@@ -69,7 +80,7 @@ Install the necessary software properties.
 ### Install MariaDB
 MariaDB is the database management system used by ERPNext.
 
-    sudo apt install -y libmariadb-dev mariadb-server  pkg-config
+    sudo apt install -y libmariadb-dev mariadb-server pkg-config
 
 ### Enabling Mariadb boots 
     sudo systemctl enable mariadb
@@ -77,7 +88,7 @@ MariaDB is the database management system used by ERPNext.
     
 ### Secure MySQL Installation
 
-    sudo mariadb-secure-installation
+    sudo mysql_secure_installation
     
 ### MySQL database development files
 This installs libraries needed to develop and compile MySQL client applications, which are essential for interacting with MySQL databases.
@@ -98,6 +109,7 @@ Add the following lines to the configuration file:
 
      [mysql]
      default-character-set = utf8mb4
+
 
 ### Restart Mariadb 
 
@@ -131,7 +143,7 @@ Install npm, the Node.js package manager.
 
 Install Yarn, a fast and reliable JavaScript package manager.
 
-    sudo npm install -g yarn@1.22.19
+    sudo npm install -g yarn
 
 ### Install wkhtmltopdf
 These tools are used to convert HTML pages into PDF files, often for generating reports or documents.
@@ -143,15 +155,6 @@ Quickly set up your Frappe development environment with this command:
 
     sudo -H pip3 install frappe-bench --break-system-packages
     bench --version 
-
-### Install ufw 
-    sudo apt install -y ufw
-    sudo ufw enable
-    sudo ufw allow 22/tcp
-    sudo ufw allow 80/tcp
-    sudo ufw allow 443/tcp
-    sudo ufw allow 8000/tcp
-    sudo ufw reload
     
 ### Initialize Frappe Bench with a Specific Version
 Initialize Frappe Bench using version 15.
