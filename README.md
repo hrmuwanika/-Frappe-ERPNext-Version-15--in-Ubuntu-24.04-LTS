@@ -48,9 +48,10 @@ First, update your package list and upgrade your installed packages to ensure yo
 ### Create a new user – (Frappe Bench User)
 create a new user for running the Frappe Bench.
 
-    sudo adduser frappe
+    sudo useradd -m -s /bin/bash frappe
+    sudo passwd frappe
     sudo usermod -aG sudo frappe
-    su frappe
+    su - frappe
     cd /home/frappe
     
 ### Install git
@@ -70,7 +71,7 @@ Install Python 3.12 and its development tools.
 ### Install virtualenv
 Set up a virtual environment for Python 3.12.
  
-    sudo apt install -y python3.12-venv
+    sudo apt install -y python3-venv
 
 ### Install Common Software Properties
 Install the necessary software properties.
@@ -88,7 +89,7 @@ MariaDB is the database management system used by ERPNext.
     
 ### Secure MySQL Installation
 
-    sudo mysql_secure_installation
+    sudo mariadb-secure-installation
     
 ### MySQL database development files
 This installs libraries needed to develop and compile MySQL client applications, which are essential for interacting with MySQL databases.
@@ -98,14 +99,21 @@ This installs libraries needed to develop and compile MySQL client applications,
 ### Edit the mariadb configuration ( unicode character encoding )
 Open the MySQL configuration file for editing:
 
-    sudo nano /etc/mysql/my.cnf
+    sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
 
 Add the following lines to the configuration file:
     
      [mysqld]
+     innodb-file-format=barracuda
+     innodb-file-per-table=1
+     innodb-large-prefix=1
      character-set-client-handshake = FALSE
      character-set-server = utf8mb4
      collation-server = utf8mb4_unicode_ci
+
+Next, open the file /etc/mysql/mariadb.conf.d/50-mysql-clients.cnf using the nano editor to configure the MariaDB client connection.
+
+     sudo nano /etc/mysql/mariadb.conf.d/50-mysql-clients.cnf
 
      [mysql]
      default-character-set = utf8mb4
@@ -167,7 +175,7 @@ Initialize Frappe Bench using version 15.
 ### Set Permissions for the User Directory
 Make sure the user has the correct permissions to access their home directory.
 
-    chmod -R o+rx .
+    chmod -R o+rx /home/frappe/frappe-bench
      
 ### Create a new site in frappe bench 
 
@@ -176,7 +184,8 @@ Make sure the user has the correct permissions to access their home directory.
 Set up a new site with the following command.
     
     bench new-site asmtech.co.rw
-    bench --site asmtech.co.rw add-to-hosts
+    #bench --site asmtech.co.rw add-to-hosts
+    bench use asmtech.co.rw
 
 ### Install Standard and Custom Apps from GitHub(Optional)
 > Install a Standard App
@@ -186,41 +195,10 @@ To install a standard app from the Frappe ecosystem, run:
     bench get-app payments
     bench get-app hrms
     
-### Install a Custom App from GitHub
-> For a custom app hosted on GitHub, use:
-bench get-app --branch [branch-name] [app-name] [github remote link]
-
     bench --site asmtech.co.rw install-app erpnext
-    sudo -H pip3 install pillow --break-system-packages
-
-    bench get-app https://github.com/erpchampions/uganda_compliance.git 
-    bench --site asmtech.co.rw install-app uganda_compliance
-
-    bench --site asmtech.co.rw migrate
-    bench restart
-
     bench start
 
-### Prepare Your Site for Production
-Activate the scheduler for your site.
-
-    bench --site asmtech.co.rw enable-scheduler
-
-> Set Maintenance Mode off
-Disable maintenance mode to make your site accessible.
-
-     bench --site asmtech.co.rw set-maintenance-mode off
-
-### Step 20: Set Up the Virtual Environment
-Run the following command to install and configure the Python virtual environment if it hasn't been set up already.
-
-      python3 -m venv env
-
-### Step 21 Activate your virtual environment
-      
-    source env/bin/activate
-    
-### Step 22: Install and Configure Additional Tools
+### Install and Configure Additional Tools
 > Install Ansible (Python Package)
 > Install Ansible to manage automation tasks.
 
@@ -231,18 +209,37 @@ Set up Fail2ban to enhance security.
 
     sudo apt install -y fail2ban
     
+    sudo systemctl is-enabled fail2ban
+    
 ### Install and Configure Nginx and Supervisor
 > Install Nginx
 Update your package list and install Nginx.
 
-    sudo apt update
     sudo apt install -y nginx 
+    
+    sudo systemctl is-enabled nginx
     
 ### Install and setup Supervisor
 Install Supervisor to manage processes.
 
-    sudo apt update && sudo apt install -y supervisor 
+    sudo apt install -y supervisor 
+    sudo systemctl is-enabled supervisor
+
+### Prepare Your Site for Production
+Activate the scheduler for your site.
+
+    bench --site asmtech.co.rw enable-scheduler
+
+> Set Maintenance Mode off
+Disable maintenance mode to make your site accessible.
+
+     bench --site asmtech.co.rw set-maintenance-mode off
     
+### Setup NGINX and supervisor to apply the changes
+
+      sudo bench setup supervisor
+      sudo bench setup nginx
+
 ### Set Up Production Environment
 Finally, set up the production environment using the following command:
 
@@ -250,15 +247,12 @@ Finally, set up the production environment using the following command:
 
 > And that’s it! You’ve successfully installed ERPNext Version 15 on Ubuntu 24. Your system is now ready for use.
 
+### Restart Supervisor and nginx 
+
+    sudo systemctl restart nginx supervisor
     
-### Setup NGINX to apply the changes
-
-    bench setup nginx
-
-### Restart Supervisor and Launch Production Mode
-
-    sudo supervisorctl restart all
-    sudo bench setup production frappe
+    sudo systemctl status nginx
+    sudo supervisorctl status
 
 If you are prompted to save the new/existing config file, respond with a Y.
 
