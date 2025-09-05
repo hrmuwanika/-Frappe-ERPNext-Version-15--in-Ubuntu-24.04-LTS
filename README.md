@@ -129,8 +129,8 @@ Redis is used for caching and background job processing.
     sudo apt install -y redis-server
 
 ### Enabling Redis boots 
-    sudo systemctl enable redis.service
-    sudo systemctl start redis.service
+    sudo systemctl enable redis-service
+    sudo systemctl start redis-service
 
 ### Install Node.js 20.X package
 Curl is required for downloading files and setting up Node.js.
