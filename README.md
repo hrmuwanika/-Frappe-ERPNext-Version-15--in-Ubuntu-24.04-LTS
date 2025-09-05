@@ -211,7 +211,7 @@ Set up Fail2ban to enhance security.
     
     sudo systemctl is-enabled fail2ban
     
-### Install and Configure Nginx and Supervisor
+### Install and Configure Nginx
 > Install Nginx
 Update your package list and install Nginx.
 
