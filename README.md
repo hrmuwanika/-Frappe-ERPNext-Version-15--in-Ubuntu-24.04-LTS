@@ -129,8 +129,8 @@ Redis is used for caching and background job processing.
     sudo apt install -y redis-server
 
 ### Enabling Redis boots 
-    sudo systemctl enable redis-service
-    sudo systemctl start redis-service
+    sudo systemctl enable redis-server
+    sudo systemctl start redis-server
 
 ### Install Node.js 20.X package
 Curl is required for downloading files and setting up Node.js.
@@ -184,7 +184,6 @@ Make sure the user has the correct permissions to access their home directory.
 Set up a new site with the following command.
     
     bench new-site asmtech.co.rw
-    #bench --site asmtech.co.rw add-to-hosts
     bench use asmtech.co.rw
 
 ### Install Standard and Custom Apps from GitHub(Optional)
