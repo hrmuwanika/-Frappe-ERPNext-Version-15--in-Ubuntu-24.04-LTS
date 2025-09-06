@@ -293,6 +293,10 @@ This also will mean that your instance will start automatically even in the even
 Default User is Administrator and use password you entered while creating new site.
 
 Open url http://asmtech.co.rw to login 
+
+### Install SSL Certificate from Letsencrpt
+We secure the ERP Application with SSL certificate
+
 ```
 sudo apt-get remove certbot
 ```
