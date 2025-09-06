@@ -171,11 +171,6 @@ Initialize Frappe Bench using version 15.
 
 ### Switch directories into the Frappe Bench directory
     cd frappe-bench
-
-### Set Permissions for the User Directory
-Make sure the user has the correct permissions to access their home directory.
-
-    chmod -R o+rx /home/frappe/frappe-bench
      
 ### Create a new site in frappe bench 
 
@@ -248,6 +243,13 @@ Remove the standard nginx sites. To avoid conflict and to avoid security vunlera
 Finally, set up the production environment using the following command:
 
     sudo bench setup production frappe
+    bench restart
+
+### Set Permissions for the User Directory
+Make sure the user has the correct permissions to access their home directory.
+
+    chmod -R o+rx /home/frappe/
+    bench restart
 
 > And that’s it! You’ve successfully installed ERPNext Version 15 on Ubuntu 24. Your system is now ready for use.
 
