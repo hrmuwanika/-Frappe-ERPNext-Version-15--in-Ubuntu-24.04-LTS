@@ -240,6 +240,11 @@ Disable maintenance mode to make your site accessible.
       sudo bench setup supervisor
       sudo bench setup nginx
 
+Remove the standard nginx sites. To avoid conflict and to avoid security vunlerabities 
+
+      sudo rm /etc/nginx/sites-available/default
+      sudo rm /etc/nginx/sites-enabled/default
+
 ### Set Up Production Environment
 Finally, set up the production environment using the following command:
 
@@ -251,6 +256,8 @@ Finally, set up the production environment using the following command:
 
     sudo systemctl restart nginx supervisor
     
+Make sure both supervisor and nginx working
+
     sudo systemctl status nginx
     sudo supervisorctl status
 
@@ -262,7 +269,7 @@ This also will mean that your instance will start automatically even in the even
 
 Default User is Administrator and use password you entered while creating new site.
 
-Open url http://asmtech.co.rw:8000 to login 
+Open url http://asmtech.co.rw to login 
 
 ### To setup multitenancy check out this link
 - https://frappeframework.com/docs/v15/user/en/bench/guides/setup-multitenancy
