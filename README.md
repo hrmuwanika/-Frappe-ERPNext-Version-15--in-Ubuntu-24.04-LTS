@@ -254,14 +254,17 @@ Make sure the user has the correct permissions to access their home directory.
 > And that’s it! You’ve successfully installed ERPNext Version 15 on Ubuntu 24. Your system is now ready for use.
 
 ### Restart Supervisor and nginx 
-
+```
     sudo systemctl restart nginx supervisor
-    
+```    
 Make sure both supervisor and nginx working
 
+```
     sudo systemctl status nginx
+```
+```
     sudo supervisorctl status
-
+```
 If you are prompted to save the new/existing config file, respond with a Y.
 
 When this completes doing the settings, your instance is now on production mode and can be accessed using your IP, without needing to use the port.
