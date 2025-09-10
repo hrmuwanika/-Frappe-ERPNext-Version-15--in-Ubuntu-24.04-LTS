@@ -50,11 +50,10 @@ sudo ufw reload
 ### Create a new user – (Frappe Bench User)
 create a new user for running the Frappe Bench.
 ```
-sudo useradd -m -s /bin/bash frappe
-sudo passwd frappe
+sudo useradd -m frappe -s /bin/bash
 sudo usermod -aG sudo frappe
+sudo passwd frappe
 su - frappe
-cd /home/frappe
 ```    
 ### Install git
 Git is required for version control and to clone repositories.
@@ -171,7 +170,13 @@ sudo npm install -g yarn
 These tools are used to convert HTML pages into PDF files, often for generating reports or documents.
 ```
 sudo apt install -y xvfb libfontconfig wkhtmltopdf
-```   
+```
+###
+```
+sudo mkdir /opt/erpnext
+sudo chown -R frappe:frappe /opt/erpnext
+cd /opt/erpnext
+```
 ### Install frappe-bench
 Quickly set up your Frappe development environment with this command:
 ```
@@ -277,11 +282,12 @@ bench restart
 ```
 sudo systemctl restart nginx supervisor
 ```    
-Make sure both supervisor and nginx working
+Verify services managed by nginx
 
 ```
 sudo systemctl status nginx
 ```
+Verify services managed by supervisord
 ```
 sudo supervisorctl status
 ```
