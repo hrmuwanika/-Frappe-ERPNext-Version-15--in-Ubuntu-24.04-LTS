@@ -281,7 +281,7 @@ sudo rm /etc/nginx/sites-enabled/default
 ### Set Up Production Environment
 Finally, set up the production environment using the following command:
 ```
-sudo bench setup production frappe
+sudo bench setup production frappe --yes
 bench restart
 ```
 ### Set Permissions for the User Directory
