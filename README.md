@@ -211,7 +211,7 @@ Provide the MariaDB credentials when prompted.
 > Warning: MariaDB version ['10.11', '7'] is more than 10.8 which is not yet tested with Frappe Framework.
 Set up a new site with the following command.
 ```    
-bench new-site asmtech.co.rw
+bench new-site asmtech.co.rw --db-name asmtech_db
 bench --site asmtech.co.rw add-to-hosts
 bench use asmtech.co.rw
 ```
