@@ -6,13 +6,13 @@
 
 ## Hardware Requirements
 - 4GB RAM
-- 40GB Hard Disk
+- 32GB Hard Disk
 
 ## Pre-requisites
   - Python 3.11+                                  (python 3.12 is inbuilt in Ubuntu 24.04 LTS)
   - Node.js 18+
   - Redis 5                                       (caching and real time updates)
-  - MariaDB 10.3.x / Postgres 9.5.x               (to run database driven apps)
+  - MariaDB 10.3.x / Postgres 9.5.x               (External MariaDB setup)
   - yarn 1.12+                                    (js dependency manager)
   - pip 20+                                       (py dependency manager)
   - wkhtmltopdf (version 0.12.5 with patched qt)  (for pdf generation)
@@ -72,7 +72,7 @@ sudo apt install -y python3-setuptools python3-pip
 ### Install virtualenv
 Set up a virtual environment for Python 3.12.
 ``` 
-sudo apt install -y python3-venv
+sudo apt install -y python3.12-venv
 ```
 ### Install Common Software Properties
 Install the necessary software properties.
