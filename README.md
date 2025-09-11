@@ -191,7 +191,20 @@ bench init frappe-bench --frappe-branch version-15
 ### Switch directories into the Frappe Bench directory
 ```
 cd frappe-bench
-```    
+```
+### Note
+> If mariadb is on a separate database server
+
+Set mariadb host
+```
+bench set-mariadb-host 10.11.12.30
+```
+Replace amjid with your desired site name. and the IP Address with your ip
+```
+bench new-site asmtech.co.rw --db-host 10.11.12.30 --db-port 3306 --db-root-username amjid  --mariadb-user-host-login-scope='%'
+```
+Provide the MariaDB credentials when prompted.
+
 ### Create a new site in frappe bench 
 
 ### Note 
