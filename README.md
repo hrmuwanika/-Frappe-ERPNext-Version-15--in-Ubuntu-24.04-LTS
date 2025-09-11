@@ -274,7 +274,7 @@ bench restart
 ### Set Permissions for the User Directory
 Make sure the user has the correct permissions to access their home directory.
 ```
-chmod -R o+rx /home/frappe/
+chmod -R o+rx /opt/erpnext/
 bench restart
 ```
 > And that’s it! You’ve successfully installed ERPNext Version 15 on Ubuntu 24. Your system is now ready for use.
