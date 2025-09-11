@@ -199,6 +199,7 @@ cd frappe-bench
 Set up a new site with the following command.
 ```    
 bench new-site asmtech.co.rw
+bench --site asmtech.co.rw add-to-hosts
 bench use asmtech.co.rw
 ```
 ### Install Standard and Custom Apps from GitHub(Optional)
